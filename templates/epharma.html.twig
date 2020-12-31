@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+  </br></br>
+    <div class="col">
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Rechercher</button>
+        </div>
+    </div>
+
+    {% for medoc in medocs %}
+
+        <h1>{{ medoc.NomMed }}</h1>
+
+    {% endfor %}
+
+
+{% endblock %}

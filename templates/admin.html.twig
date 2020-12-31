@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <h1>Création d'un médicament</h1>
+
+    {{ form_start(form_med) }}
+
+    {{ form_widget(form_med) }}
+
+    <button type="submit" class="btn btn-success">Ajouter le médicament</button>
+
+    {{ form_end(form_med) }}
+
+{% endblock %}
