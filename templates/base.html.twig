@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}HomeCare+{% endblock %}</title>
         <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
         {% block stylesheets %}{% endblock %}
     </head>
@@ -30,13 +30,19 @@
                         <a class="nav-link" href="{{ path('nutrition') }}">Nutrition</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('admin') }}">Admin</a>
+                        <a class="nav-link" href="{{ path('admin') }}">EDIT</a>
                     </li> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ path('login') }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Se connecter</a>
+                        <a class="nav-link dropdown-toggle" href="{{ path('login') }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Log In</a>
+                    </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle"  href="{{ path('signup') }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">S'inscrire</a>
+                        <a class="nav-link dropdown-toggle" href="{{ path('logout') }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Log Out</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle"  href="{{ path('secutity_inscription') }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">ADD USER</a>
                     </li>
                 </ul>
               </div>

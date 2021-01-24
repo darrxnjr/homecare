@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Medicament;
-use App\Entity\SearchMed;
 use App\Form\SearchMedType;
 use App\Repository\MedicamentRepository;
 use Doctrine\DBAL\Types\IntegerType;
@@ -38,12 +37,28 @@ class HomeController extends AbstractController
     /**
      * @Route("/epharma", name="epharma")
      */
-    public function epharma(MedicamentRepository $repo_epharma){
+    public function epharma(MedicamentRepository $repo_epharma, Request $request){
 
         $medocs = $repo_epharma->findAll();
 
+        $medocs1 = new Medicament();
+
+        $form = $this->createForm(SearchMedType::class, $medocs1);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $medocs1 = $repo_epharma->findByExampleIndication("Migraine");
+            return $this->render('epharma.html.twig', [
+                'medocs' => $medocs1,
+                'fmedocs' => $form->createView()
+            ]);
+
+        }
         return $this->render('epharma.html.twig', [
-                'medocs' => $medocs
+                'medocs' => $medocs,
+                'fmedocs' => $form->createView()
             ]);
     }
 
@@ -61,12 +76,6 @@ class HomeController extends AbstractController
         return $this->render('articles.html.twig');
     }
 
-    /**
-     * @Route("/login", name="login")
-     */
-    public function login(){
-        return $this->render('login.html.twig');
-    }
 
     /**
      * @Route("/signup", name="signup")
@@ -83,12 +92,7 @@ class HomeController extends AbstractController
     {
         $medocs = new Medicament();
 
-     /*  $medocs->setNomMed("Fervex")
-               ->setFabricant("Sanofi")
-               ->setIndications("Grippe")
-               ->setContreIndic("Grossesse")
-               ->setComposants("Paracétamol") */
-        ;
+
         $form = $this->createFormBuilder($medocs)
             ->add('nom_med', TextType::class, [
                 'attr' => [
@@ -147,6 +151,18 @@ class HomeController extends AbstractController
             else
                 $medocs=$this->getDoctrine()->getRepository(Medicament::class)->findAll();
         }
+    }
+
+    public function rechercheMed(Request $request)
+    {
+        $em=$this->getDoctrine()->getManager();
+        $medoc = $em->getRepository(Medicament::class)->findAll();
+        if($request->isMethod("POST"))
+        {
+            $rechmed = $request->get('fabricant');
+            $medoc = $em->getRepository(Medicament::class)->findBy(array('fabricant'=>$rechmed));
+        }
+        return $this->render('epharma', array('medoc'=>medoc));
     }
 
 

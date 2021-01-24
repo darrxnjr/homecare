@@ -6,15 +6,43 @@
   </br></br>
     <div class="col">
         <div class="form-group">
+
+            {{ form_start(fmedocs) }}
+
+            {{ form_widget(fmedocs) }}
+
             <button type="submit" class="btn btn-success">Rechercher</button>
+
+            {{ form_end(fmedocs) }}
         </div>
-    </div>
+
+
+    <table style="border:solid">
+
+        <tr style="border:solid; font-weight: bold; font-family: Arial, Helvetica, sans-serif">
+            <th style="border:solid">Id Med</th>
+            <th style="border:solid">Libellé</th>
+            <th style="border:solid">Fabricant</th>
+            <th style="border:solid">Indications</th>
+            <th style="border:solid">Contre Indications</th>
+            <th style="border:solid">Action</th>
+        </tr>
 
     {% for medoc in medocs %}
 
-        <h1>{{ medoc.NomMed }}</h1>
+        <tr style="border:solid">
+            <td style="border:solid">{{ medoc.Id }}</td>
+            <td style="border:solid">{{ medoc.NomMed }}</td>
+            <td style="border:solid">{{ medoc.Fabricant }}</td>
+            <td style="border:solid">{{ medoc.Indications }}</td>
+            <td style="border:solid">{{ medoc.ContreIndic }}</td>
+            <td style="border:solid"><a href="#">Commander</a></td>
+        </tr>
 
     {% endfor %}
+    </table>
+    </div>
+    </br></br></br>
 
 
 {% endblock %}

@@ -4,11 +4,15 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @ORM\Id
@@ -20,90 +24,90 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nom;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $prenom;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min="8", minMessage="Votre mot de passe doit contenir au moins 8 caractères")
      */
-    private $adresse;
+    private $password;
 
     /**
-     * @ORM\Column(type="date")
+     * @Assert\EqualTo(propertyPath="password", message="Les mots de passe ne correspondent pas")
      */
-    private $date_naiss;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $sexe;
+    private $confirm_password;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNom(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nom;
+        return $this->username;
     }
 
-    public function setNom(string $nom): self
+    public function setUsername(string $username): self
     {
-        $this->nom = $nom;
+        $this->username = $username;
 
         return $this;
     }
 
-    public function getPrenom(): ?string
+    public function getEmail(): ?string
     {
-        return $this->prenom;
+        return $this->email;
     }
 
-    public function setPrenom(string $prenom): self
+    public function setEmail(string $email): self
     {
-        $this->prenom = $prenom;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getAdresse(): ?string
+    public function getPassword(): ?string
     {
-        return $this->adresse;
+        return $this->password;
     }
 
-    public function setAdresse(string $adresse): self
+    public function setPassword(string $password): self
     {
-        $this->adresse = $adresse;
+        $this->password = $password;
 
         return $this;
     }
 
-    public function getDateNaiss(): ?\DateTimeInterface
+    public function getConfirmPassword(): ?string
     {
-        return $this->date_naiss;
+        return $this->confirm_password;
     }
 
-    public function setDateNaiss(\DateTimeInterface $date_naiss): self
+    public function setConfirmPassword(string $confirm_password): self
     {
-        $this->date_naiss = $date_naiss;
+        $this->confirm_password = $confirm_password;
 
         return $this;
     }
 
-    public function getSexe(): ?string
+    public function getRoles()
     {
-        return $this->sexe;
+        // TODO: Implement getRoles() method.
+        return['ROLE_USER'];
     }
 
-    public function setSexe(string $sexe): self
+    public function getSalt()
     {
-        $this->sexe = $sexe;
+        // TODO: Implement getSalt() method.
+    }
 
-        return $this;
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
     }
 }
